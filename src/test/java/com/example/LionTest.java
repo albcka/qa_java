@@ -15,29 +15,29 @@ import static org.mockito.Mockito.*;
 public class LionTest {
 
     @Mock
-    private Predator predatorMock;
+    private Feline felineMock;
 
     @Test
     public void testMaleLionHasMane() throws Exception {
-        Lion lion = new Lion("Самец", predatorMock);
+        Lion lion = new Lion("Самец", felineMock);
         assertTrue("Самец должен иметь гриву", lion.doesHaveMane());
     }
 
     @Test
     public void testFemaleLionNoMane() throws Exception {
-        Lion lion = new Lion("Самка", predatorMock);
+        Lion lion = new Lion("Самка", felineMock);
         assertFalse("Самка не должна иметь гриву", lion.doesHaveMane());
     }
 
     @Test(expected = Exception.class)
     public void testInvalidSexThrowsException() throws Exception {
-        new Lion("Неизвестно", predatorMock);
+        new Lion("Неизвестно", felineMock);
     }
 
     @Test
     public void testInvalidSexExceptionMessage() {
         try {
-            new Lion("Invalid", predatorMock);
+            new Lion("Invalid", felineMock);
             fail("Должно было быть выброшено исключение");
         } catch (Exception e) {
             assertEquals("Сообщение об ошибке должно совпадать",
@@ -57,17 +57,15 @@ public class LionTest {
 
     @Test
     public void testGetFood() throws Exception {
-        List<String> expectedFood = Arrays.asList("Мясо", "Рыба");
-        when(predatorMock.eatMeat()).thenReturn(expectedFood);
+        when(felineMock.getFood("Хищник")).thenReturn(List.of("Животные", "Птицы", "Рыба"));
 
-        Lion lion = new Lion("Самка", predatorMock);
-        assertEquals("Должен вернуться правильный список еды", expectedFood, lion.getFood());
-        verify(predatorMock).eatMeat();
+        Lion lion = new Lion("Самка", felineMock);
+        assertEquals("Должен вернуться правильный список еды", List.of("Животные", "Птицы", "Рыба"), lion.getFood());
     }
 
     @Test
     public void testLionWithRealFeline() throws Exception {
-        Predator realFeline = new Feline();
+        Feline realFeline = new Feline();
         Lion lion = new Lion("Самец", realFeline);
 
         assertTrue("Самец должен иметь гриву", lion.doesHaveMane());
@@ -81,7 +79,7 @@ public class LionTest {
     @Test
     public void testEmptySexString() throws Exception {
         try {
-            new Lion("", predatorMock);
+            new Lion("", felineMock);
             fail("Должно было быть выброшено исключение");
         } catch (Exception e) {
             assertTrue("Должно быть исключение", e.getMessage().contains("Используйте допустимые значения"));
@@ -91,7 +89,7 @@ public class LionTest {
     @Test
     public void testNullSex() throws Exception {
         try {
-            new Lion(null, predatorMock);
+            new Lion(null, felineMock);
             fail("Должно было быть выброшено исключение");
         } catch (Exception e) {
             assertTrue("Должно быть исключение", e.getMessage().contains("Используйте допустимые значения"));

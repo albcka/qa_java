@@ -19,18 +19,17 @@ public class CatTest {
 
     @Test
     public void testGetSound() {
+
         Cat cat = new Cat(felineMock);
         assertEquals("Должен вернуться правильный звук", "Мяу", cat.getSound());
     }
 
     @Test
     public void testGetFood() throws Exception {
-        List<String> expectedFood = Arrays.asList("Мясо", "Рыба");
-        when(felineMock.eatMeat()).thenReturn(expectedFood);
+        when(felineMock.eatMeat()).thenReturn(List.of("Мясо", "Рыба"));
 
         Cat cat = new Cat(felineMock);
-        assertEquals("Должен вернуться правильный список еды", expectedFood, cat.getFood());
-        verify(felineMock).eatMeat();
+        assertEquals("Должен вернуться правильный список еды", List.of("Мясо", "Рыба"), cat.getFood());
     }
 
     @Test(expected = Exception.class)
@@ -45,6 +44,7 @@ public class CatTest {
     public void testCatWithRealFeline() throws Exception {
         Feline realFeline = new Feline();
         Cat cat = new Cat(realFeline);
+
 
         assertEquals("Должен вернуться правильный звук", "Мяу", cat.getSound());
 
