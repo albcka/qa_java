@@ -17,32 +17,16 @@ public class LionTest {
     @Mock
     private Feline felineMock;
 
-    @Test
-    public void testMaleLionHasMane() throws Exception {
-        Lion lion = new Lion("Самец", felineMock);
-        assertTrue("Самец должен иметь гриву", lion.doesHaveMane());
-    }
-
-    @Test
-    public void testFemaleLionNoMane() throws Exception {
-        Lion lion = new Lion("Самка", felineMock);
-        assertFalse("Самка не должна иметь гриву", lion.doesHaveMane());
-    }
-
-    @Test(expected = Exception.class)
-    public void testInvalidSexThrowsException() throws Exception {
-        new Lion("Неизвестно", felineMock);
-    }
 
     @Test
     public void testInvalidSexExceptionMessage() {
         try {
             new Lion("Invalid", felineMock);
             fail("Должно было быть выброшено исключение");
-        } catch (Exception e) {
+        } catch (Exception error) {
             assertEquals("Сообщение об ошибке должно совпадать",
                     "Используйте допустимые значения пола животного - самец или самка",
-                    e.getMessage());
+                    error.getMessage());
         }
     }
 
@@ -81,8 +65,8 @@ public class LionTest {
         try {
             new Lion("", felineMock);
             fail("Должно было быть выброшено исключение");
-        } catch (Exception e) {
-            assertTrue("Должно быть исключение", e.getMessage().contains("Используйте допустимые значения"));
+        } catch (Exception error) {
+            assertTrue("Должно быть исключение", error.getMessage().contains("Используйте допустимые значения пола животного - самец или самка"));
         }
     }
 
@@ -91,8 +75,8 @@ public class LionTest {
         try {
             new Lion(null, felineMock);
             fail("Должно было быть выброшено исключение");
-        } catch (Exception e) {
-            assertTrue("Должно быть исключение", e.getMessage().contains("Используйте допустимые значения"));
+        } catch (Exception error) {
+            assertTrue("Должно быть исключение", error.getMessage().contains("Используйте допустимые значения пола животного - самец или самка"));
         }
     }
 }

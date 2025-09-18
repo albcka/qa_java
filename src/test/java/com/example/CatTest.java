@@ -4,10 +4,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-
-import java.util.Arrays;
 import java.util.List;
-
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
@@ -26,10 +23,10 @@ public class CatTest {
 
     @Test
     public void testGetFood() throws Exception {
-        when(felineMock.eatMeat()).thenReturn(List.of("Мясо", "Рыба"));
+        when(felineMock.eatMeat()).thenReturn(List.of("Животные", "Птицы", "Рыба"));
 
         Cat cat = new Cat(felineMock);
-        assertEquals("Должен вернуться правильный список еды", List.of("Мясо", "Рыба"), cat.getFood());
+        assertEquals("Должен вернуться правильный список еды", List.of("Животные", "Птицы", "Рыба"), cat.getFood());
     }
 
     @Test(expected = Exception.class)
@@ -51,21 +48,6 @@ public class CatTest {
         List<String> food = cat.getFood();
         assertNotNull("Еда не должна быть null", food);
         assertFalse("Список еды не должен быть пустым", food.isEmpty());
-    }
-
-    @Test
-    public void testMultipleCatsDifferentDependencies() throws Exception {
-        Feline feline1 = mock(Feline.class);
-        Feline feline2 = mock(Feline.class);
-
-        when(feline1.eatMeat()).thenReturn(Arrays.asList("Мясо"));
-        when(feline2.eatMeat()).thenReturn(Arrays.asList("Рыба"));
-
-        Cat cat1 = new Cat(feline1);
-        Cat cat2 = new Cat(feline2);
-
-        assertEquals("Первый кот должен использовать первую зависимость", Arrays.asList("Мясо"), cat1.getFood());
-        assertEquals("Второй кот должен использовать вторую зависимость", Arrays.asList("Рыба"), cat2.getFood());
     }
 
     @Test

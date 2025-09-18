@@ -15,14 +15,13 @@ public class FelineTest {
     @Test
     public void testEatMeat() throws Exception {
         Feline feline = new Feline();
-        List<String> expectedFood = Arrays.asList("Животные", "Птицы", "Рыба");
-        assertEquals("Должен вернуться список еды для хищника", expectedFood, feline.eatMeat());
+        assertEquals("Должен вернуться список еды для хищника", List.of("Животные", "Птицы", "Рыба"), feline.eatMeat());
     }
 
     @Test
     public void testGetFamily() {
         Feline feline = new Feline();
-        assertEquals("Должна вернуться правильная семья", "Кошачьи", feline.getFamily());
+        assertEquals("Должно вернуться правильное семейство", "Кошачьи", feline.getFamily());
     }
 
     @Test
@@ -34,19 +33,19 @@ public class FelineTest {
     @Test
     public void testGetKittensWithCount5() {
         Feline feline = new Feline();
-        assertEquals("Должен вернуться переданный count котят", 5, feline.getKittens(5));
+        assertEquals("Должно вернуться 5 котят", 5, feline.getKittens(5));
     }
 
     @Test
     public void testGetKittensWithCount0() {
         Feline feline = new Feline();
-        assertEquals("Должен вернуться переданный count котят", 0, feline.getKittens(0));
+        assertEquals("Должно вернуться 0 котят", 0, feline.getKittens(0));
     }
 
     @Test
     public void testGetKittensWithNegativeCount() {
         Feline feline = new Feline();
-        assertEquals("Должен вернуться переданный count котят", -2, feline.getKittens(-2));
+        assertEquals("Должно вернуться отрицательное количество котят", -2, feline.getKittens(-2));
     }
 
     @Test
@@ -58,7 +57,6 @@ public class FelineTest {
     @Test
     public void testGetFoodDelegatesToAnimal() throws Exception {
         Feline feline = new Feline();
-        List<String> expectedFood = Arrays.asList("Животные", "Птицы", "Рыба");
-        assertEquals("Должен вернуться список еды от родительского класса", expectedFood, feline.getFood("Хищник"));
+        assertEquals("Должен вернуться список еды от родительского класса", List.of("Животные", "Птицы", "Рыба"), feline.getFood("Хищник"));
     }
 }
